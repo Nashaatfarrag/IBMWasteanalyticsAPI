@@ -77,5 +77,4 @@ function updateBin(BinID, percentage) {
 }
 
 
-
 module.exports = { loggingTable, currentValueTable, updateBin };

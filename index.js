@@ -2,12 +2,14 @@
 const express = require("express");
 const morgan = require("morgan");
 const config = require("config");
+const cors = require("cors");
 const database = require("./database");
 const app = express();
 
 app.use(express.json()); // to make request body as json object
 app.use(express.urlencoded({ extended: true })); //to understand url parameters
 app.use(express.static("public"));
+app.use(cors());
 
 app.get("/allbins", (req, res) => {
   database.loggingTable.find(
@@ -49,10 +51,12 @@ app.get("/currentstatus", (req, res) => {
 });
 
 app.put("/editbin", (req, res) => {
+  console.log("put method called")
+  console.log(req.body)
   let date = new Date().getTime();
    let doc = {
-    BinID: req.body.BinID,
-    percentage: req.body.percentage,
+    BinID: parseInt(req.body.BinID),
+    percentage: parseInt(req.body.percentage),
     timeStamp : date 
   };
   database.updateBin(doc.BinID , doc.percentage );
