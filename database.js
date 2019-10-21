@@ -7,20 +7,20 @@ var cloudant = Cloudant({
 
 //console.log(cloudant)
 
-cloudant.db
-  .list()
-  .then(body => {
-    body.forEach(db => {
-      console.log(db);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// cloudant.db
+//   .list()
+//   .then(body => {
+//     body.forEach(db => {
+//       console.log(db);
+//     });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
-var db = cloudant.db.use("wastedb");
-let newdb = cloudant.db.create("hhwastedb");
-console.log(newdb);
+let db = cloudant.db.use("wastedb");
+// let newdb = cloudant.db.create("hhwastedb");
+// console.log(newdb);
 var books = [
   { author: "Charles Dickens", title: "David Copperfield" },
   { author: "David Copperfield", title: "Tales of the Impossible" },
@@ -48,13 +48,7 @@ const doc = {
 //    console.log(body)
 //  })
 
-// db.find({ selector: {  } }, function(err, result) {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log(result.docs)
-//   // console.log('Found %d documents with name Alice', result.docs.length);
-//   // for (var i = 0; i < result.docs.length; i++) {
-//   //   console.log('  Doc id: %s', result.docs[i]._id);
-//   // }
-// });
+
+
+
+module.exports = { db};
