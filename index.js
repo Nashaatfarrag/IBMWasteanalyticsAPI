@@ -2,7 +2,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const config = require("config");
-const database = require('./database')
+const database = require("./database");
 const app = express();
 
 app.use(express.json()); // to make request body as json object
@@ -10,7 +10,27 @@ app.use(express.urlencoded({ extended: true })); //to understand url parameters
 app.use(express.static("public"));
 
 app.get("/allbins", (req, res) => {
-  database.db.find(
+  database.loggingTable.find(
+    {
+      selector: {
+        _id: {
+          $gt: "0"
+        }
+      }
+    },
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      result.docs.map(v => (v.Persent = 30));
+      res.send(result.docs);
+    }
+  );
+  //   res.send("hello world");
+});
+
+app.get("/currentstatus", (req, res) => {
+  database.currentValueTable.find(
     {
       selector: {
         _id: {
@@ -25,8 +45,21 @@ app.get("/allbins", (req, res) => {
       res.send(result.docs);
     }
   );
-//   res.send("hello world");
+  
 });
+
+app.put("/editbin", (req, res) => {
+  let date = new Date().getTime();
+   let doc = {
+    BinID: req.body.BinID,
+    percentage: req.body.percentage,
+    timeStamp : date 
+  };
+  database.updateBin(doc.BinID , doc.percentage );
+  database.loggingTable.insert(doc).then(res.status(200).send("ok"))
+
+});
+
 
 //config
 console.log("App name : " + config.get("name"));

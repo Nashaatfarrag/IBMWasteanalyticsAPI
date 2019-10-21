@@ -18,8 +18,12 @@ var cloudant = Cloudant({
 //     console.log(err);
 //   });
 
-let db = cloudant.db.use("wastedb");
-// let newdb = cloudant.db.create("hhwastedb");
+let loggingTable = cloudant.db.use("wastedb");
+let currentValueTable = cloudant.db.use("currentbinstatus");
+// mydb.insert({
+//   hi : "by"
+// })
+// let newdb = cloudant.db.create("currentBinStatus");
 // console.log(newdb);
 var books = [
   { author: "Charles Dickens", title: "David Copperfield" },
@@ -48,7 +52,30 @@ const doc = {
 //    console.log(body)
 //  })
 
+function updateBin(BinID, percentage) {
+  let element = {
+    BinID: BinID,
+    percentage: percentage
+  };
+
+  currentValueTable.find(
+    {
+      selector: {
+        BinID: BinID
+      }
+    },
+    (err, res) => {
+      if( err )
+      throw err 
+
+      if (res.docs.length) {
+        currentValueTable.destroy(res.docs[0]._id, res.docs[0]._rev);
+        currentValueTable.insert(element);
+      }
+    }
+  );
+}
 
 
 
-module.exports = { db};
+module.exports = { loggingTable, currentValueTable, updateBin };
