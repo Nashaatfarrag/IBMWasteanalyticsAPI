@@ -4,6 +4,7 @@
   "description": "Api for IBM Competition project",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohamed Nashaat",
@@ -12,6 +13,7 @@
     "@cloudant/cloudant": "^4.2.1",
     "config": "^3.2.3",
     "express": "^4.17.1",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.4"
   }
 }
