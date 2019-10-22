@@ -47,23 +47,20 @@ app.get("/currentstatus", (req, res) => {
       res.send(result.docs);
     }
   );
-  
 });
 
 app.put("/editbin", (req, res) => {
-  console.log("put method called")
-  console.log(req.body)
+  console.log("put method called");
+  console.log(req.body);
   let date = new Date().getTime();
-   let doc = {
+  let doc = {
     BinID: parseInt(req.body.BinID),
     percentage: parseInt(req.body.percentage),
-    timeStamp : date 
+    timeStamp: date
   };
-  database.updateBin(doc.BinID , doc.percentage );
-  database.loggingTable.insert(doc).then(res.status(200).send("ok"))
-
+  database.updateBin(doc.BinID, doc.percentage);
+  database.loggingTable.insert(doc).then(res.status(200).send("ok"));
 });
-
 
 //config
 console.log("App name : " + config.get("name"));

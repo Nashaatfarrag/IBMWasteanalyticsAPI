@@ -20,10 +20,11 @@ var cloudant = Cloudant({
 
 let loggingTable = cloudant.db.use("wastedb");
 let currentValueTable = cloudant.db.use("currentbinstatus");
+let pathData = cloudant.db.use("pathstatus");
 // mydb.insert({
 //   hi : "by"
 // })
-// let newdb = cloudant.db.create("currentBinStatus");
+// let pathData = cloudant.db.create("pathstatus");
 // console.log(newdb);
 var books = [
   { author: "Charles Dickens", title: "David Copperfield" },
@@ -53,11 +54,7 @@ const doc = {
 //  })
 
 function updateBin(BinID, percentage) {
-  let element = {
-    BinID: BinID,
-    percentage: percentage
-  };
-
+  let date = new Date().getTime();
   currentValueTable.find(
     {
       selector: {
@@ -65,16 +62,40 @@ function updateBin(BinID, percentage) {
       }
     },
     (err, res) => {
-      if( err )
-      throw err 
+      if (err) throw err;
 
       if (res.docs.length) {
-        currentValueTable.destroy(res.docs[0]._id, res.docs[0]._rev);
-        currentValueTable.insert(element);
+        res.docs[0].percentage = percentage ;
+        res.docs[0].timeStamp = date ;
+        res.docs[0].position = {
+          lng: 29.98 + (Math.random() * 0.01 + 0),
+          lat: 31.25 + (Math.random() * 0.01 + 0)
+        };
+        currentValueTable.insert(res.docs[0]);
       }
     }
   );
 }
 
+// for(let i = 15 ; i < 30 ; i++){
+//   // setTimeout(updateBin  ,40000 , 1000+i , Math.floor((Math.random() * 100) + 1));
+//   updateBin(1000+i, Math.floor((Math.random() * 100) + 1 ))
+//   console.log(i);
+// }
 
-module.exports = { loggingTable, currentValueTable, updateBin };
+// for( let i = 0 ; i< 6 ; i++){
+//   let date = new Date().getTime();
+  
+//   let doc = {}
+//   doc.percentage = Math.floor((Math.random() * 100) + 1 ) ;
+//   doc.timeStamp = date ;
+//   doc.BinID = 1040+i ;
+//   doc.position = {
+//     lng: 29.98 + (Math.random() * 0.01 + 0),
+//     lat: 31.25 + (Math.random() * 0.01 + 0)
+//   };
+//   currentValueTable.insert(doc);
+// }
+
+
+module.exports = { loggingTable, currentValueTable, updateBin , pathData };
