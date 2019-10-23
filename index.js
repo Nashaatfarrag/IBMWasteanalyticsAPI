@@ -22,7 +22,7 @@ app.get("/allbins", (req, res) => {
     },
     (err, result) => {
       if (err) {
-        throw err;
+        console.log(err)
       }
       result.docs.map(v => (v.Persent = 30));
       res.send(result.docs);

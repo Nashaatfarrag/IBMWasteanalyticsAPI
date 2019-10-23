@@ -65,8 +65,8 @@ function updateBin(BinID, percentage) {
       if (err) throw err;
 
       if (res.docs.length) {
-        res.docs[0].percentage = percentage ;
-        res.docs[0].timeStamp = date ;
+        res.docs[0].percentage = percentage;
+        res.docs[0].timeStamp = date;
         res.docs[0].position = {
           lng: 29.98 + (Math.random() * 0.01 + 0),
           lat: 31.25 + (Math.random() * 0.01 + 0)
@@ -83,13 +83,13 @@ function updateBin(BinID, percentage) {
 //   console.log(i);
 // }
 
-// for( let i = 0 ; i< 6 ; i++){
+// for( let i = 0 ; i< 15 ; i++){
 //   let date = new Date().getTime();
-  
+
 //   let doc = {}
 //   doc.percentage = Math.floor((Math.random() * 100) + 1 ) ;
 //   doc.timeStamp = date ;
-//   doc.BinID = 1040+i ;
+//   doc.BinID = 1027+i ;
 //   doc.position = {
 //     lng: 29.98 + (Math.random() * 0.01 + 0),
 //     lat: 31.25 + (Math.random() * 0.01 + 0)
@@ -97,5 +97,4 @@ function updateBin(BinID, percentage) {
 //   currentValueTable.insert(doc);
 // }
 
-
-module.exports = { loggingTable, currentValueTable, updateBin , pathData };
+module.exports = { loggingTable, currentValueTable, updateBin, pathData };
