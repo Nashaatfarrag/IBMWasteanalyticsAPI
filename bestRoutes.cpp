@@ -29,7 +29,7 @@ int main(){
 
     for(int i = 0; i < n; ++i){
         for(int j = i + 1; j < n; ++j){
-            double dist =  hypot(bins[i].x - bins[j].x, bins[i].y - bins[j].y);
+            double dist =  hypot(bins[i].x - bins[j].x, bins[i].y - bins[j].y); // should be replaced with Google Maps API call to find the shortest path between two points
             nearestTo[i].push_back({dist, j});
             nearestTo[j].push_back({dist, i});
         }
