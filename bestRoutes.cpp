@@ -2,13 +2,7 @@
 
 using namespace std;
 
-#define ll long long
-#define X first
-#define Y second
 #define all(x) x.begin(), x.end()
-
-const int MX = (int)1e5 + 10;
-const int mod = (int)1e9 + 7;
 
 struct Bin{
     int id, x, y;
@@ -21,9 +15,6 @@ struct Route{
 };
 
 int main(){
-
-    cin.tie(0); cout.tie(0);
-    ios_base::sync_with_stdio(0);
 
     int n;
     cin >> n;
