@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true })); //to understand url parameters
 app.use(express.static("public"));
 app.use(cors());
 
+app.get("/hello", (req, res) => {
+  res.send("hello" + "  " + req.query.sortby + req.query.hi );
+  console.log(typeof(req.query.hi))
+});
 app.get("/allbins", (req, res) => {
   database.loggingTable.find(
     {
@@ -22,7 +26,7 @@ app.get("/allbins", (req, res) => {
     },
     (err, result) => {
       if (err) {
-        console.log(err)
+        console.log(err);
       }
       result.docs.map(v => (v.Persent = 30));
       res.send(result.docs);
